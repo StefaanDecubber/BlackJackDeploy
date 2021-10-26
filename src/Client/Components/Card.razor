@@ -1,0 +1,13 @@
+﻿@if(BlackJackCard.FaceUp){
+    
+    string url = "images/" + (int)BlackJackCard.FaceValue + BlackJackCard.Suit.ToString()[0] + ".svg";
+
+    <img src="@($"{url}")" alt="Card" />
+    }
+    else
+    {
+        <img src="images/BACK.svg" alt="Card" />
+    }
+    @code {
+        [Parameter] public BlackJackCard BlackJackCard { get; set; }
+    }

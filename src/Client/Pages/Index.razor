@@ -1,3 +1,44 @@
 ﻿@page "/"
+@using Client.Components
 
 <h1>BlackJack</h1>
+
+<p>
+    @{
+        <div class="mt-2">
+            @foreach (var card in bj.DealerHand.Cards)
+            {
+                <Card BlackJackCard="card" />
+            }
+        </div>
+        <div class="mt-2">
+            @foreach (var card in bj.PlayerHand.Cards)
+            {
+                <Card BlackJackCard="card" />
+            }
+        </div>
+        <div class="mt-2">
+            <h3>@bj.GameSummary()</h3>
+            <p>Dealer Total: @bj.DealerHand.Value</p>
+            <p>Player Total: @bj.PlayerHand.Value</p>
+        </div>
+        @if (bj.GameState != GameState.GameOver)
+        {
+            <button class="btn btn-primary" @onclick="@bj.GivePlayerAnotherCard">Next</button>
+            <button class="btn btn-secondary" @onclick="@bj.PassToDealer">Pass</button>
+        }
+        else
+        {
+            <button class="btn btn-warning" @onclick="StartNewGame">New Game</button>
+        }
+    }
+</p>
+
+    @code{
+        private BlackJack bj = new BlackJack();
+
+        void StartNewGame()
+        {
+            bj = new BlackJack();
+        }
+    }
